@@ -72,13 +72,22 @@ footer b{color:var(--ink)}
   <button class="pri" id="zip">Download all (ZIP)</button>
   <input type="file" id="jf" accept=".json,application/json" hidden>
 </header>
-<div class="tabs"><button id="t_phone" class="on">Phone</button><button id="t_tablet">Tablet</button></div>
+<div class="tabs"><button id="t_phone" class="on">Phone</button><button id="t_tablet">Tablet</button><button id="t_feature">Feature graphic</button></div>
 <main>
-  <aside id="list">
+  <aside id="list"><div id="slideList">
     <div id="drop" tabindex="0" role="button"><div class="ico">+</div><b>Drop screenshots here</b><br>or click to choose<br><small>Any size, up to 8 per device type</small></div>
     <input type="file" id="fi" accept="image/*" multiple hidden>
     <div id="items" style="margin-top:12px"></div>
-    <div id="count" class="hint"></div>
+    <div id="count" class="hint"></div></div>
+  <div id="fList" hidden>
+    <label style="margin-top:0">App logo (optional)</label>
+    <div class="row"><button id="f_iconBtn">Upload logo</button><button id="f_iconX">Remove</button></div>
+    <label for="f_shot">Screenshot to show</label>
+    <select id="f_shot"></select>
+    <button id="f_shotBtn" style="width:100%;margin-top:8px">Upload a different screenshot</button>
+    <input type="file" id="f_ifile" accept="image/*" hidden><input type="file" id="f_sfile" accept="image/*" hidden>
+    <p class="hint">By default the first phone screenshot is used. Add phone screenshots on the Phone tab first.</p>
+  </div>
   </aside>
   <section id="stage">
     <div class="row" style="width:100%;max-width:640px;align-items:center">
@@ -106,11 +115,21 @@ footer b{color:var(--ink)}
       <label class="chk"><input type="checkbox" id="bleed"> Bleed off the bottom edge</label>
       <div class="row" style="margin-top:14px"><button id="all">Apply style to all</button></div>
     </div>
-    <hr style="border:none;border-top:1px solid var(--line);margin:18px 0 4px">
+    <div id="sizeBox"><hr style="border:none;border-top:1px solid var(--line);margin:18px 0 4px">
     <label for="preset">Output size for <span id="tabName">phone</span></label>
     <select id="preset"></select>
     <div class="row" style="margin-top:8px"><input type="number" id="W" min="320" max="3840" aria-label="Width"><input type="number" id="H" min="320" max="3840" aria-label="Height"></div>
-    <p class="hint">Google Play: JPEG or 24-bit PNG, each side 320–3840 px, long side at most 2× the short side. 2–8 screenshots per device type.</p>
+    <p class="hint">Google Play: JPEG or 24-bit PNG, each side 320–3840 px, long side at most 2× the short side. 2–8 screenshots per device type.</p></div>
+    <div id="fctl" hidden>
+      <label for="f_title" style="margin-top:0">Title</label><input type="text" id="f_title" maxlength="60" placeholder="Smart cricket scoring">
+      <label for="f_tag">Tagline</label><input type="text" id="f_tag" maxlength="80" placeholder="Score. Share. Win.">
+      <label>Background</label><div class="sw" id="fsw"></div>
+      <div class="row"><div><label for="f_c1">Colour 1</label><input type="color" id="f_c1"></div><div><label for="f_c2">Colour 2</label><input type="color" id="f_c2"></div></div>
+      <label for="f_frame">Screenshot frame</label>
+      <select id="f_frame"><option value="device">Device bezel</option><option value="outline">White outline</option><option value="none">Rounded, no frame</option></select>
+      <label class="chk"><input type="checkbox" id="f_decor"> Soft background circles</label>
+      <p class="hint">Google Play feature graphic: exactly 1024 × 500, JPEG or 24-bit PNG, up to 15 MB. Keep key content away from the edges, as Play may crop them.</p>
+    </div>
   </aside>
 </main>
 <footer>Created by <b>Amanullah Khan</b> · Upload any screenshot, export Play Console–ready phone and tablet images</footer>
@@ -120,7 +139,8 @@ const $=s=>document.querySelector(s),FN='system-ui,"Segoe UI",Roboto,Arial,sans-
 const TH=[['#ff7a59','#7b2ff7'],['#00c6ff','#0072ff'],['#11998e','#38ef7d'],['#0f2027','#2c5364'],['#ee0979','#ff6a00'],['#4776e6','#8e54e9'],['#232526','#414345'],['#fdfbfb','#dfe3ee']];
 const PR={phone:[['1080 × 1920 (9:16)',1080,1920],['1080 × 2160 (9:18)',1080,2160],['1440 × 2560 (9:16)',1440,2560],['1920 × 1080 (landscape)',1920,1080]],
 tablet:[['7-inch · 1200 × 1920',1200,1920],['10-inch · 1600 × 2560',1600,2560],['10-inch · 1800 × 2880',1800,2880],['10-inch · 2560 × 1600 (landscape)',2560,1600]]};
-let P={app:'PlayShots',v:1,name:'My App',tab:'phone',phone:{w:1080,h:1920,s:[]},tablet:{w:1600,h:2560,s:[]}},sel=0;
+const defF=()=>({w:1024,h:500,s:[],title:'',tag:'',c1:'#4776e6',c2:'#8e54e9',frame:'device',decor:true,shot:'p0',icon:null,sh:null});
+let P={app:'PlayShots',v:1,name:'My App',tab:'phone',phone:{w:1080,h:1920,s:[]},tablet:{w:1600,h:2560,s:[]},feature:defF()},sel=0;
 const D=()=>P[P.tab],S=()=>D().s[sel];
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),3200)}
 const okSize=d=>{const a=Math.min(d.w,d.h),b=Math.max(d.w,d.h);return a>=320&&b<=3840&&b<=2*a};
@@ -155,7 +175,7 @@ function draw(cv,s,W,H,k){
   if(s.frame==='device'){x.strokeStyle='rgba(255,255,255,.2)';x.lineWidth=m*.003;x.beginPath();x.roundRect(fx,fy,fw,fh,r);x.stroke()}
 }
 
-function refresh(){
+function refreshS(){
   const d=D(),s=S();
   const cv=$('#cv');
   if(s)draw(cv,s,d.w,d.h,Math.min(1,900/Math.max(d.w,d.h)));
@@ -173,7 +193,7 @@ function refresh(){
   const ok=okSize(d);$('#sizeBadge').className='badge '+(ok?'ok':'bad');$('#sizeBadge').textContent=d.w+' × '+d.h;
   $('#sizeMsg').textContent=ok?'Accepted by Google Play':'Each side must be 320–3840 px and the long side at most 2× the short side';
 }
-function sync(){
+function syncS(){
   const d=D(),s=S();$('#ctls').hidden=!s;$('#noSel').hidden=!!s;
   ['t_phone','t_tablet'].forEach(i=>$('#'+i).classList.toggle('on',i==='t_'+P.tab));
   $('#tabName').textContent=P.tab;$('#pname').value=P.name;
@@ -184,6 +204,81 @@ function sync(){
     document.querySelectorAll('#sw button').forEach((b,i)=>b.classList.toggle('on',TH[i][0]===s.c1&&TH[i][1]===s.c2))}
 }
 const all=()=>{sync();refresh()};
+const isF=()=>P.tab==='feature';
+function sync(){
+  const F=isF();['phone','tablet','feature'].forEach(t=>$('#t_'+t).classList.toggle('on',t===P.tab));
+  $('#slideList').hidden=F;$('#fList').hidden=!F;$('#fctl').hidden=!F;$('#sizeBox').hidden=F;
+  if(F){$('#ctls').hidden=true;$('#noSel').hidden=true;syncF()}else syncS();
+}
+function refresh(){isF()?refreshF():refreshS()}
+function featShot(f){
+  if(f.shot==='up'&&f._sh)return{im:f._sh,iw:f._sh.width,ih:f._sh.height};
+  const m=/^p(\d+)$/.exec(f.shot||''),q=m&&P.phone.s[+m[1]];
+  return q?{im:q._im,iw:q.iw,ih:q.ih}:null;
+}
+function drawF(cv,f,k,ph){
+  const W=1024,H=500;cv.width=W*k;cv.height=H*k;
+  const x=cv.getContext('2d');x.scale(k,k);
+  const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,f.c1);g.addColorStop(1,f.c2);x.fillStyle=g;x.fillRect(0,0,W,H);
+  if(f.decor)[[.92,.1,.5,.14],[.03,.9,.38,.09],[.55,1,.3,.1]].forEach(([a,b,r,o])=>{x.beginPath();x.arc(a*W,b*H,r*H,0,7);x.fillStyle='rgba(255,255,255,'+o+')';x.fill()});
+  const dark=(lum(f.c1)+lum(f.c2))/2<.62,ink=dark?'#ffffff':'#14162a',sh=featShot(f),has=!!sh;
+  const tx=has?64:W/2,mw=has?500:780,IC=f._icon?112:0,T=f.title||(ph?'Your app name':'');
+  x.textAlign=has?'left':'center';x.textBaseline='top';
+  let fs=64,L=[];
+  while(fs>30){x.font='800 '+fs+'px '+FN;L=wrap(x,T,mw);if(L.length<=3)break;fs-=4}
+  x.font='800 '+fs+'px '+FN;L=wrap(x,T,mw);
+  const f2=Math.max(20,fs*.42);x.font='500 '+f2+'px '+FN;
+  const L2=f.tag?wrap(x,f.tag,mw):[],th=L.length*fs*1.12,tg=L2.length*f2*1.3,tot=IC+(IC?20:0)+th+(tg?12+tg:0);
+  let y=(H-tot)/2;
+  if(IC){const ix=has?tx:W/2-56,a=f._icon,m=Math.min(a.width,a.height);
+    x.save();x.shadowColor='rgba(0,0,0,.35)';x.shadowBlur=18;x.shadowOffsetY=6;x.beginPath();x.roundRect(ix,y,112,112,26);x.fillStyle='#fff';x.fill();x.restore();
+    x.save();x.beginPath();x.roundRect(ix,y,112,112,26);x.clip();x.drawImage(a,(a.width-m)/2,(a.height-m)/2,m,m,ix,y,112,112);x.restore();y+=132}
+  x.fillStyle=ink;x.font='800 '+fs+'px '+FN;L.forEach(l=>{x.fillText(l,tx,y);y+=fs*1.12});
+  if(tg){y+=12;x.font='500 '+f2+'px '+FN;x.globalAlpha=.85;L2.forEach(l=>{x.fillText(l,tx,y);y+=f2*1.3});x.globalAlpha=1}
+  if(has){
+    const ra=sh.iw/sh.ih,bz=f.frame==='none'?0:f.frame==='outline'?6:9,top=44;
+    let dh=H-top+70-2*bz,dw=dh*ra;if(dw>400){dw=400;dh=dw/ra}
+    const fw=dw+2*bz,fh=dh+2*bz,fx=804-fw/2,fy=fh>H-top?top:(H-fh)/2;
+    const r=Math.min(fw,fh)*(f.frame==='device'?.07:f.frame==='outline'?.045:.03);
+    x.save();x.shadowColor='rgba(0,0,0,.4)';x.shadowBlur=30;x.shadowOffsetY=10;x.fillStyle=f.frame==='outline'?'#fff':'#0b0c12';x.beginPath();x.roundRect(fx,fy,fw,fh,r);x.fill();x.restore();
+    x.save();x.beginPath();x.roundRect(fx+bz,fy+bz,dw,dh,Math.max(r-bz,2));x.clip();x.drawImage(sh.im,fx+bz,fy+bz,dw,dh);x.restore();
+    if(f.frame==='device'){x.strokeStyle='rgba(255,255,255,.2)';x.lineWidth=2;x.beginPath();x.roundRect(fx,fy,fw,fh,r);x.stroke()}
+  }
+}
+function refreshF(){
+  drawF($('#cv'),P.feature,1,true);
+  $('#sizeBadge').className='badge ok';$('#sizeBadge').textContent='1024 × 500';$('#sizeMsg').textContent='Exact Google Play feature graphic size';
+}
+function syncF(){
+  const f=P.feature;
+  $('#f_title').value=f.title;$('#f_tag').value=f.tag;$('#f_c1').value=f.c1;$('#f_c2').value=f.c2;$('#f_frame').value=f.frame;$('#f_decor').checked=f.decor;
+  const o=$('#f_shot');o.innerHTML='';o.add(new Option('None','none'));
+  P.phone.s.forEach((q,i)=>o.add(new Option('Phone screenshot '+(i+1),'p'+i)));
+  if(f._sh)o.add(new Option('Uploaded screenshot','up'));
+  if(![...o.options].some(q=>q.value===f.shot))f.shot=P.phone.s.length?'p0':f._sh?'up':'none';
+  o.value=f.shot;
+  document.querySelectorAll('#fsw button').forEach((b,i)=>b.classList.toggle('on',TH[i][0]===f.c1&&TH[i][1]===f.c2));
+}
+TH.forEach((t,i)=>{const b=document.createElement('button');b.style.background='linear-gradient(135deg,'+t[0]+','+t[1]+')';b.setAttribute('aria-label','Theme '+(i+1));
+  b.onclick=()=>{P.feature.c1=t[0];P.feature.c2=t[1];all()};$('#fsw').append(b)});
+[['f_title','title'],['f_tag','tag'],['f_c1','c1'],['f_c2','c2'],['f_frame','frame']].forEach(([i,k])=>$('#'+i).addEventListener('input',e=>{P.feature[k]=e.target.value;refreshF();if(k[0]==='c')syncF()}));
+$('#f_decor').onchange=e=>{P.feature.decor=e.target.checked;refreshF()};
+$('#f_shot').onchange=e=>{P.feature.shot=e.target.value;refreshF()};
+async function prep(file,max){
+  const src=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(file)});
+  const im=await loadIm(src),k=Math.min(1,max/Math.max(im.width,im.height));
+  const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+  const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(im,0,0,c.width,c.height);
+  return{c,url:c.toDataURL('image/jpeg',.92)};
+}
+$('#f_iconBtn').onclick=()=>$('#f_ifile').click();
+$('#f_shotBtn').onclick=()=>$('#f_sfile').click();
+$('#f_iconX').onclick=()=>{P.feature.icon=null;P.feature._icon=null;refreshF()};
+$('#f_ifile').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const r=await prep(f,512);P.feature.icon=r.url;P.feature._icon=r.c;refreshF()};
+$('#f_sfile').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const r=await prep(f,1600);P.feature.sh=r.url;P.feature._sh=r.c;P.feature.shot='up';syncF();refreshF()};
+const featOn=()=>{const f=P.feature;return !!(f.title||f.tag||f.icon||f.sh)};
+const blobF=()=>new Promise(r=>{const c=document.createElement('canvas');drawF(c,P.feature,1,false);c.toBlob(r,ext()==='png'?'image/png':'image/jpeg',.95)});
+
 
 TH.forEach((t,i)=>{const b=document.createElement('button');b.style.background='linear-gradient(135deg,'+t[0]+','+t[1]+')';b.setAttribute('aria-label','Theme '+(i+1));
   b.onclick=()=>{const s=S();s.c1=t[0];s.c2=t[1];all()};$('#sw').append(b)});
@@ -191,7 +286,7 @@ TH.forEach((t,i)=>{const b=document.createElement('button');b.style.background='
 ['decor','bleed'].forEach(k=>$('#'+k).addEventListener('change',e=>{S()[k]=e.target.checked;refresh()}));
 $('#all').onclick=()=>{const s=S();D().s.forEach(q=>Object.assign(q,{c1:s.c1,c2:s.c2,frame:s.frame,sc:s.sc,y:s.y,decor:s.decor,bleed:s.bleed}));all();toast('Style applied to all screenshots')};
 $('#pname').oninput=e=>P.name=e.target.value;
-['phone','tablet'].forEach(t=>$('#t_'+t).onclick=()=>{P.tab=t;sel=0;all()});
+['phone','tablet','feature'].forEach(t=>$('#t_'+t).onclick=()=>{P.tab=t;sel=0;all()});
 $('#preset').onchange=e=>{if(e.target.value==='c')return;const p=PR[P.tab][+e.target.value];D().w=p[1];D().h=p[2];all()};
 ['W','H'].forEach(k=>$('#'+k).addEventListener('change',e=>{D()[k.toLowerCase()]=Math.max(1,+e.target.value||1);all()}));
 
@@ -221,13 +316,13 @@ const slug=()=>(P.name||'app').trim().replace(/[^\w-]+/g,'-').toLowerCase()||'ap
 const ext=()=>$('#fmt').value;
 const blobOf=(s,d)=>new Promise(r=>{const c=document.createElement('canvas');draw(c,s,d.w,d.h,1);c.toBlob(r,ext()==='png'?'image/png':'image/jpeg',.95)});
 const guard=d=>{if(!okSize(d)){toast('Fix the output size first: it is outside Google Play’s limits.');return false}return true};
-$('#one').onclick=async()=>{const d=D(),s=S();if(!s)return toast('Add a screenshot first.');if(!guard(d))return;save(await blobOf(s,d),slug()+'-'+P.tab+'-'+String(sel+1).padStart(2,'0')+'.'+ext())};
+$('#one').onclick=async()=>{if(isF())return save(await blobF(),slug()+'-feature-graphic-1024x500.'+ext());const d=D(),s=S();if(!s)return toast('Add a screenshot first.');if(!guard(d))return;save(await blobOf(s,d),slug()+'-'+P.tab+'-'+String(sel+1).padStart(2,'0')+'.'+ext())};
 $('#zip').onclick=async()=>{
   const jobs=[];['phone','tablet'].forEach(t=>P[t].s.forEach((s,i)=>jobs.push([t,s,i])));
-  if(!jobs.length)return toast('Add screenshots first.');
+  const fe=featOn();if(!jobs.length&&!fe)return toast('Add screenshots or a feature graphic first.');
   for(const t of['phone','tablet'])if(P[t].s.length&&!okSize(P[t])){P.tab=t;all();return toast('Fix the '+t+' output size first.')}
-  if(typeof JSZip==='undefined'){for(const[t,s,i]of jobs)save(await blobOf(s,P[t]),slug()+'-'+t+'-'+String(i+1).padStart(2,'0')+'.'+ext());return}
-  const z=new JSZip();
+  if(typeof JSZip==='undefined'){if(fe)save(await blobF(),slug()+'-feature-graphic.'+ext());for(const[t,s,i]of jobs)save(await blobOf(s,P[t]),slug()+'-'+t+'-'+String(i+1).padStart(2,'0')+'.'+ext());return}
+  const z=new JSZip();if(fe)z.file('feature/'+slug()+'-feature-graphic-1024x500.'+ext(),await blobF());
   for(const[t,s,i]of jobs)z.file(t+'/'+slug()+'-'+t+'-'+String(i+1).padStart(2,'0')+'.'+ext(),await blobOf(s,P[t]));
   save(await z.generateAsync({type:'blob'}),slug()+'-play-store-screenshots.zip');
   const w=['phone','tablet'].filter(t=>P[t].s.length&&P[t].s.length<2);if(w.length)toast('Note: Google Play needs at least 2 '+w.join(' and ')+' screenshots.');
@@ -239,6 +334,7 @@ $('#jf').onchange=async e=>{
   try{
     const j=JSON.parse(await f.text());if(j.app!=='PlayShots')throw 0;
     for(const t of['phone','tablet'])for(const s of j[t].s){const im=await loadIm(s.img);s._im=im}
+    if(!j.feature)j.feature=defF();const ff=j.feature;ff.s=ff.s||[];if(ff.icon)ff._icon=await loadIm(ff.icon);if(ff.sh)ff._sh=await loadIm(ff.sh);
     P=j;sel=0;all();toast('Project loaded.');
   }catch(err){toast('That file is not a Screenshot Studio project.')}
 };
