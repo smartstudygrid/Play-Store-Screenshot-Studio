@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Play Store Screenshot Studio</title>
+<link rel="icon" href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCABAAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDzNNdQrjcKy9T1FZc4NcZHfSf3jUpvGA3HmveZ5mxdvJdxNZkgy1TfaUlx8u2knUFx5RJGOc1F7EynYdacMK39Pn24FYltGwrTtVwQTnHeonOxy1KqsdZpV8FYc11NlqY2DmvPYGZHGePatuynIUZNcNWvbY8jEyuro8riiOatiE7OlSRRAGr9kj+cgizvJwuBknNd06lj2KlUqWlruU5XJ4wc9K3vD9rp8WsWzarGHtQwLpnG7/61UWurhZhbWimNw2zgYcnOMZPSrV1pviKNI/PtprlZThUyJcn0x1Fc2Lp81PldRRbR15diaOExlKtiUpRTvyvr/wAM9TqfGA0W4aS6s7W2tLYAmEKAH2jqTjr6D61j2tmI7drqUARqQPxPSvQ7S7sfC+j2tvJFH9rMSiU28IaSVgOWJPOAeOoFUPEOqaFrOj3P2sSxXUWFVDDtuA5+6Av8QP4j6V8rgsynD3XFuDdrmfEef0M3xEZ4ejyJaX7rS2n/AA+55/8AaA026rsN0AOtYTsySFW4IOCPQ09JyO9fSypXPHlRuUtuK1PDrganCpCkuwUAnAJP8JPYHpntnPaqEq0kLbX56d62mueLR1qVnc6Txb4auo7pL+wzPHN98Zw4cAfqVKkj13DtWVaaxrOkXURLyxvGSVSVeOmDweOnHFVrnV786g9y9y4kc5LBuG9z71FqF/cX8kZuJWlZBtQZzjPpgYFOnRbgqdZxlC3Xc6al6lTWzh57/wCR6GNQj1ayTUtu0yoFI/uleCPpnP51Bptok2pTXUkh82GE4ZTukUvkbgOuVUNj/a2DvVPw3qOiwaJDp9xPGZEJaQOSnzMcnB9O34VNf+J9J0y0kj03ZJO4ICxEnn1Zvbr6+mK+XjVlTk6FGm97L0v/AJHiYWn7DFc6i2r/AIHK69IG1OZQFBRirBTkKR/CD3C/dz3xnvWcXxSJwg+lRStX1MIcuh6j96TZebmoH4NSK2RSMuaGuUi1hiuQOCRThIw6E0ojp4iqOZEtojLsepzTTz1qVosVGwxTuug00MbgVUnap5nqlM1bUk2bwif/2Q==">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+:root{--bg:#e8eaf6;--card:#fff;--ink:#15172b;--mut:#646a88;--line:#e1e4f2;--ac:#5b4bff;--ac2:#ff4d8d;--acx:#fff;--ok:#0f8f4a;--bad:#d1293d;--sh:0 8px 28px rgba(40,40,110,.09);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d0f1e;--card:#171a2f;--ink:#eef0ff;--mut:#9ba1c2;--line:#2a2e4d;--ac:#8f87ff;--ac2:#ff6fa5;--acx:#0d0f22;--ok:#3ddc84;--bad:#ff6b7d;--sh:0 8px 28px rgba(0,0,0,.35);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d0f1e;--card:#171a2f;--ink:#eef0ff;--mut:#9ba1c2;--line:#2a2e4d;--ac:#8f87ff;--ac2:#ff6fa5;--acx:#0d0f22;--ok:#3ddc84;--bad:#ff6b7d;--sh:0 8px 28px rgba(0,0,0,.35);color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:radial-gradient(900px 420px at 8% -8%,rgba(91,75,255,.2),transparent 70%),radial-gradient(800px 420px at 100% 0,rgba(255,77,141,.15),transparent 70%),var(--bg);background-attachment:fixed;color:var(--ink);font:15px/1.45 system-ui,"Segoe UI",Roboto,Arial,sans-serif;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+header,.tabs,footer{flex:none}
+header{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center;padding:16px 22px 10px}
+.brand{display:flex;gap:12px;align-items:center;flex:1 1 300px}
+.logo img{width:100%;height:100%;object-fit:cover;display:block}
+.logo{width:48px;height:48px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,var(--ac),var(--ac2));display:grid;place-items:center;box-shadow:0 8px 18px rgba(91,75,255,.4);flex:none}
+h1{font-size:20px;margin:0;font-weight:800;letter-spacing:-.02em;line-height:1.2}
+h1 small{display:block;font-weight:500;color:var(--mut);font-size:13px;letter-spacing:0;margin-top:2px}
+button,select,input{font:inherit;color:inherit}
+button{border:1px solid var(--line);background:var(--card);border-radius:11px;padding:9px 15px;cursor:pointer;font-weight:600;transition:border-color .15s,transform .1s,box-shadow .15s}
+button:hover{border-color:var(--ac);box-shadow:0 4px 14px rgba(91,75,255,.15)}
+button:active{transform:scale(.98)}
+button.pri{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(91,75,255,.35)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+input[type=text],input[type=number],select{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 10px;width:100%}
+.tabs{display:flex;gap:8px;padding:6px 22px 0}
+.tabs button{border-radius:99px;padding:8px 22px;color:var(--mut)}
+.tabs button.on{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(91,75,255,.3)}
+main{display:grid;grid-template-columns:240px minmax(0,1fr) 310px;gap:14px;padding:14px 22px;flex:1;min-height:0}
+aside,section{padding:16px;overflow-y:auto;min-height:0;overscroll-behavior:contain;border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh)}
+#list,#ctl{background:var(--card)}
+#stage{background-color:var(--card);background-image:radial-gradient(var(--line) 1.3px,transparent 1.4px);background-size:20px 20px;display:flex;flex-direction:column;align-items:center;gap:12px}
+#cv{max-width:100%;max-height:calc(100dvh - 330px);width:auto;height:auto;object-fit:contain;border-radius:10px;box-shadow:0 24px 60px rgba(30,20,90,.35)}
+.it{display:flex;gap:8px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:13px;margin-bottom:8px;cursor:pointer;background:var(--card)}
+.it.on{border-color:var(--ac);box-shadow:0 0 0 2px var(--ac) inset}
+.it canvas{width:54px;height:auto;border-radius:6px;flex:none;background:var(--bg)}
+.it span{flex:1;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.it button{padding:3px 7px;font-size:12px;border-radius:8px}
+#drop{border:2px dashed var(--line);border-radius:15px;padding:20px 12px;text-align:center;color:var(--mut);cursor:pointer;background:linear-gradient(135deg,rgba(91,75,255,.07),rgba(255,77,141,.07))}
+#drop b{color:var(--ink)}
+#drop.hot,#drop:hover{border-color:var(--ac)}
+.ico{width:44px;height:44px;border-radius:50%;margin:0 auto 8px;display:grid;place-items:center;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;font-size:26px;font-weight:700;line-height:1}
+label{display:block;font-size:12.5px;font-weight:600;color:var(--mut);margin:12px 0 5px}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.sw{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.sw button{height:36px;padding:0;border-radius:10px;border:2px solid transparent}
+.sw button.on{border-color:var(--ink)}
+input[type=color]{width:100%;height:36px;padding:2px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+input[type=range]{width:100%;accent-color:var(--ac)}
+.chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;color:var(--ink);font-size:14px;font-weight:500}
+.chk input{width:auto}
+.badge{font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:99px;border:1px solid currentColor;background:var(--card)}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90vw;z-index:9}
+#toast.on{opacity:1}
+.hint{color:var(--mut);font-size:12.5px;margin:6px 0 0}
+footer{text-align:center;padding:2px 22px 12px;color:var(--mut);font-size:12.5px}
+footer b{color:var(--ink)}
+@media(max-width:960px){body{height:auto;display:block;overflow:visible}main{grid-template-columns:1fr;padding:12px}aside,section{overflow:visible}#cv{max-height:60vh}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo"><img src="data:image/jpeg;base64,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" alt="SmartCric logo"></div><h1>Play Store Screenshot Studio<small>Created by Amanullah Khan</small></h1></div>
+  <input type="text" id="pname" value="My App" style="width:170px" aria-label="Project name">
+  <button id="load">Open project</button>
+  <button id="saveP">Save project (.json)</button>
+  <button class="pri" id="zip">Download all (ZIP)</button>
+  <input type="file" id="jf" accept=".json,application/json" hidden>
+</header>
+<div class="tabs"><button id="t_phone" class="on">Phone</button><button id="t_tablet">Tablet</button></div>
+<main>
+  <aside id="list">
+    <div id="drop" tabindex="0" role="button"><div class="ico">+</div><b>Drop screenshots here</b><br>or click to choose<br><small>Any size, up to 8 per device type</small></div>
+    <input type="file" id="fi" accept="image/*" multiple hidden>
+    <div id="items" style="margin-top:12px"></div>
+    <div id="count" class="hint"></div>
+  </aside>
+  <section id="stage">
+    <div class="row" style="width:100%;max-width:640px;align-items:center">
+      <span id="sizeBadge" class="badge" style="flex:none"></span>
+      <span class="hint" id="sizeMsg" style="margin:0"></span>
+    </div>
+    <canvas id="cv" width="540" height="960"></canvas>
+    <div class="row" style="max-width:420px;width:100%">
+      <select id="fmt" aria-label="Export format"><option value="jpg">JPEG (no alpha, safest)</option><option value="png">PNG</option></select>
+      <button class="pri" id="one">Download this image</button>
+    </div>
+  </section>
+  <aside id="ctl">
+    <div id="noSel" class="hint">Add a screenshot to start styling.</div>
+    <div id="ctls" hidden>
+      <label for="cap" style="margin-top:0">Headline</label><input type="text" id="cap" placeholder="Track every goal">
+      <label for="sub">Subtitle</label><input type="text" id="sub" placeholder="Simple. Fast. Yours.">
+      <label>Background</label><div class="sw" id="sw"></div>
+      <div class="row"><div><label for="c1">Colour 1</label><input type="color" id="c1"></div><div><label for="c2">Colour 2</label><input type="color" id="c2"></div></div>
+      <label for="frame">Frame</label>
+      <select id="frame"><option value="device">Device bezel</option><option value="outline">White outline</option><option value="none">Rounded, no frame</option></select>
+      <label for="sc">Screenshot size</label><input type="range" id="sc" min="50" max="100">
+      <label for="y">Vertical position</label><input type="range" id="y" min="-10" max="25">
+      <label class="chk"><input type="checkbox" id="decor"> Soft background circles</label>
+      <label class="chk"><input type="checkbox" id="bleed"> Bleed off the bottom edge</label>
+      <div class="row" style="margin-top:14px"><button id="all">Apply style to all</button></div>
+    </div>
+    <hr style="border:none;border-top:1px solid var(--line);margin:18px 0 4px">
+    <label for="preset">Output size for <span id="tabName">phone</span></label>
+    <select id="preset"></select>
+    <div class="row" style="margin-top:8px"><input type="number" id="W" min="320" max="3840" aria-label="Width"><input type="number" id="H" min="320" max="3840" aria-label="Height"></div>
+    <p class="hint">Google Play: JPEG or 24-bit PNG, each side 320–3840 px, long side at most 2× the short side. 2–8 screenshots per device type.</p>
+  </aside>
+</main>
+<footer>Created by <b>Amanullah Khan</b> · Upload any screenshot, export Play Console–ready phone and tablet images</footer>
+<div id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s),FN='system-ui,"Segoe UI",Roboto,Arial,sans-serif';
+const TH=[['#ff7a59','#7b2ff7'],['#00c6ff','#0072ff'],['#11998e','#38ef7d'],['#0f2027','#2c5364'],['#ee0979','#ff6a00'],['#4776e6','#8e54e9'],['#232526','#414345'],['#fdfbfb','#dfe3ee']];
+const PR={phone:[['1080 × 1920 (9:16)',1080,1920],['1080 × 2160 (9:18)',1080,2160],['1440 × 2560 (9:16)',1440,2560],['1920 × 1080 (landscape)',1920,1080]],
+tablet:[['7-inch · 1200 × 1920',1200,1920],['10-inch · 1600 × 2560',1600,2560],['10-inch · 1800 × 2880',1800,2880],['10-inch · 2560 × 1600 (landscape)',2560,1600]]};
+let P={app:'PlayShots',v:1,name:'My App',tab:'phone',phone:{w:1080,h:1920,s:[]},tablet:{w:1600,h:2560,s:[]}},sel=0;
+const D=()=>P[P.tab],S=()=>D().s[sel];
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),3200)}
+const okSize=d=>{const a=Math.min(d.w,d.h),b=Math.max(d.w,d.h);return a>=320&&b<=3840&&b<=2*a};
+const lum=h=>{const n=parseInt(h.slice(1),16);return(.299*(n>>16)+.587*((n>>8)&255)+.114*(n&255))/255};
+const loadIm=src=>new Promise((r,j)=>{const i=new Image();i.onload=()=>r(i);i.onerror=j;i.src=src});
+function wrap(x,t,mw){const L=[];let l='';t.split(/\s+/).forEach(a=>{const n=l?l+' '+a:a;if(x.measureText(n).width>mw&&l){L.push(l);l=a}else l=n});if(l)L.push(l);return L}
+
+function draw(cv,s,W,H,k){
+  cv.width=Math.round(W*k);cv.height=Math.round(H*k);
+  const x=cv.getContext('2d');x.scale(k,k);
+  const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,s.c1);g.addColorStop(1,s.c2);
+  x.fillStyle=g;x.fillRect(0,0,W,H);
+  const m=Math.min(W,H);
+  if(s.decor)[[.9,.1,.5,.14],[.02,.6,.38,.09],[.85,.92,.3,.12]].forEach(([a,b,r,o])=>{x.beginPath();x.arc(a*W,b*H,r*m,0,7);x.fillStyle='rgba(255,255,255,'+o+')';x.fill()});
+  const dark=(lum(s.c1)+lum(s.c2))/2<.62,ink=dark?'#ffffff':'#14162a';
+  let top=H*.05;const land=W>H,fs=m*(land?.07:.075);
+  x.textAlign='center';x.textBaseline='top';
+  if(s.cap){x.font='800 '+fs+'px '+FN;x.fillStyle=ink;wrap(x,s.cap,W*.84).forEach(l=>{x.fillText(l,W/2,top);top+=fs*1.15})}
+  if(s.sub){const f2=fs*.5;x.font='500 '+f2+'px '+FN;x.globalAlpha=.85;x.fillStyle=ink;wrap(x,s.sub,W*.8).forEach(l=>{x.fillText(l,W/2,top+fs*.1);top+=f2*1.3});x.globalAlpha=1}
+  if(s.cap||s.sub)top+=H*.025;
+  const ra=s.iw/s.ih,bz=s.frame==='none'?0:m*(s.frame==='outline'?.009:.015);
+  const aw=W*s.sc/100-2*bz,ah0=H-top-H*.04-2*bz;
+  let dw,dh;
+  if(s.bleed){dw=Math.min(aw,m*1.2);dh=dw/ra}else{dw=Math.min(aw,ah0*ra);dh=dw/ra}
+  const fw=dw+2*bz,fh=dh+2*bz,fx=(W-fw)/2;
+  let fy=s.bleed?top:top+(H-top-H*.04-fh)/2;fy+=s.y*H/100;
+  const r=Math.min(fw,fh)*(s.frame==='device'?.07:s.frame==='outline'?.045:.03);
+  x.save();x.shadowColor='rgba(0,0,0,.38)';x.shadowBlur=m*.05;x.shadowOffsetY=m*.02;
+  x.fillStyle=s.frame==='outline'?'#fff':'#0b0c12';x.beginPath();x.roundRect(fx,fy,fw,fh,r);x.fill();x.restore();
+  x.save();x.beginPath();x.roundRect(fx+bz,fy+bz,dw,dh,Math.max(r-bz,2));x.clip();
+  if(s._im)x.drawImage(s._im,fx+bz,fy+bz,dw,dh);x.restore();
+  if(s.frame==='device'){x.strokeStyle='rgba(255,255,255,.2)';x.lineWidth=m*.003;x.beginPath();x.roundRect(fx,fy,fw,fh,r);x.stroke()}
+}
+
+function refresh(){
+  const d=D(),s=S();
+  const cv=$('#cv');
+  if(s)draw(cv,s,d.w,d.h,Math.min(1,900/Math.max(d.w,d.h)));
+  else{cv.width=d.w/4;cv.height=d.h/4;const x=cv.getContext('2d');x.fillStyle='#8a90b0';x.fillRect(0,0,cv.width,cv.height);x.fillStyle='#fff';x.font='20px '+FN;x.textAlign='center';x.fillText('Preview',cv.width/2,cv.height/2)}
+  const it=$('#items');it.innerHTML='';
+  d.s.forEach((q,i)=>{
+    const e=document.createElement('div');e.className='it'+(i===sel?' on':'');
+    const c=document.createElement('canvas');draw(c,q,d.w,d.h,120/Math.max(d.w,d.h));
+    const sp=document.createElement('span');sp.textContent=q.cap||'Screenshot '+(i+1);
+    e.append(c,sp);
+    [['↑',-1],['↓',1],['✕',0]].forEach(([t,dir])=>{const b=document.createElement('button');b.textContent=t;b.setAttribute('aria-label',dir?'Move':'Remove');
+      b.onclick=ev=>{ev.stopPropagation();if(!dir){d.s.splice(i,1);sel=Math.max(0,Math.min(sel,d.s.length-1))}else{const j=i+dir;if(j<0||j>=d.s.length)return;[d.s[i],d.s[j]]=[d.s[j],d.s[i]];sel=j}all()};e.append(b)});
+    e.onclick=()=>{sel=i;all()};it.append(e)});
+  const n=d.s.length;$('#count').textContent=n+' of 8 added'+(n<2?' · Google Play needs at least 2':'');
+  const ok=okSize(d);$('#sizeBadge').className='badge '+(ok?'ok':'bad');$('#sizeBadge').textContent=d.w+' × '+d.h;
+  $('#sizeMsg').textContent=ok?'Accepted by Google Play':'Each side must be 320–3840 px and the long side at most 2× the short side';
+}
+function sync(){
+  const d=D(),s=S();$('#ctls').hidden=!s;$('#noSel').hidden=!!s;
+  ['t_phone','t_tablet'].forEach(i=>$('#'+i).classList.toggle('on',i==='t_'+P.tab));
+  $('#tabName').textContent=P.tab;$('#pname').value=P.name;
+  const pr=$('#preset');pr.innerHTML='';PR[P.tab].forEach((p,i)=>{const o=new Option(p[0],i);pr.add(o)});pr.add(new Option('Custom','c'));
+  const f=PR[P.tab].findIndex(p=>p[1]===d.w&&p[2]===d.h);pr.value=f<0?'c':f;
+  $('#W').value=d.w;$('#H').value=d.h;
+  if(s){['cap','sub','c1','c2','frame','sc','y'].forEach(k=>$('#'+k).value=s[k]);$('#decor').checked=s.decor;$('#bleed').checked=s.bleed;
+    document.querySelectorAll('#sw button').forEach((b,i)=>b.classList.toggle('on',TH[i][0]===s.c1&&TH[i][1]===s.c2))}
+}
+const all=()=>{sync();refresh()};
+
+TH.forEach((t,i)=>{const b=document.createElement('button');b.style.background='linear-gradient(135deg,'+t[0]+','+t[1]+')';b.setAttribute('aria-label','Theme '+(i+1));
+  b.onclick=()=>{const s=S();s.c1=t[0];s.c2=t[1];all()};$('#sw').append(b)});
+['cap','sub','c1','c2','frame','sc','y'].forEach(k=>$('#'+k).addEventListener('input',e=>{const s=S();s[k]=(k==='sc'||k==='y')?+e.target.value:e.target.value;refresh();if(k==='c1'||k==='c2')sync()}));
+['decor','bleed'].forEach(k=>$('#'+k).addEventListener('change',e=>{S()[k]=e.target.checked;refresh()}));
+$('#all').onclick=()=>{const s=S();D().s.forEach(q=>Object.assign(q,{c1:s.c1,c2:s.c2,frame:s.frame,sc:s.sc,y:s.y,decor:s.decor,bleed:s.bleed}));all();toast('Style applied to all screenshots')};
+$('#pname').oninput=e=>P.name=e.target.value;
+['phone','tablet'].forEach(t=>$('#t_'+t).onclick=()=>{P.tab=t;sel=0;all()});
+$('#preset').onchange=e=>{if(e.target.value==='c')return;const p=PR[P.tab][+e.target.value];D().w=p[1];D().h=p[2];all()};
+['W','H'].forEach(k=>$('#'+k).addEventListener('change',e=>{D()[k.toLowerCase()]=Math.max(1,+e.target.value||1);all()}));
+
+async function addFiles(fl){
+  const d=D();
+  for(const f of fl){
+    if(!f.type.startsWith('image/'))continue;
+    if(d.s.length>=8){toast('Google Play allows up to 8 screenshots per device type.');break}
+    const src=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(f)});
+    const im=await loadIm(src),k=Math.min(1,2400/Math.max(im.width,im.height));
+    const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+    const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(im,0,0,c.width,c.height);
+    const t=TH[d.s.length%TH.length];
+    d.s.push({img:c.toDataURL('image/jpeg',.92),iw:c.width,ih:c.height,cap:'',sub:'',c1:t[0],c2:t[1],frame:'device',sc:84,y:0,decor:true,bleed:false,_im:c});
+  }
+  sel=Math.max(0,d.s.length-1);all();
+}
+const dz=$('#drop');
+dz.onclick=()=>$('#fi').click();dz.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')$('#fi').click()};
+$('#fi').onchange=e=>{addFiles([...e.target.files]);e.target.value=''};
+['dragover','dragenter'].forEach(v=>dz.addEventListener(v,e=>{e.preventDefault();dz.classList.add('hot')}));
+['dragleave','drop'].forEach(v=>dz.addEventListener(v,()=>dz.classList.remove('hot')));
+dz.addEventListener('drop',e=>{e.preventDefault();addFiles([...e.dataTransfer.files])});
+
+function save(b,n){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+const slug=()=>(P.name||'app').trim().replace(/[^\w-]+/g,'-').toLowerCase()||'app';
+const ext=()=>$('#fmt').value;
+const blobOf=(s,d)=>new Promise(r=>{const c=document.createElement('canvas');draw(c,s,d.w,d.h,1);c.toBlob(r,ext()==='png'?'image/png':'image/jpeg',.95)});
+const guard=d=>{if(!okSize(d)){toast('Fix the output size first: it is outside Google Play’s limits.');return false}return true};
+$('#one').onclick=async()=>{const d=D(),s=S();if(!s)return toast('Add a screenshot first.');if(!guard(d))return;save(await blobOf(s,d),slug()+'-'+P.tab+'-'+String(sel+1).padStart(2,'0')+'.'+ext())};
+$('#zip').onclick=async()=>{
+  const jobs=[];['phone','tablet'].forEach(t=>P[t].s.forEach((s,i)=>jobs.push([t,s,i])));
+  if(!jobs.length)return toast('Add screenshots first.');
+  for(const t of['phone','tablet'])if(P[t].s.length&&!okSize(P[t])){P.tab=t;all();return toast('Fix the '+t+' output size first.')}
+  if(typeof JSZip==='undefined'){for(const[t,s,i]of jobs)save(await blobOf(s,P[t]),slug()+'-'+t+'-'+String(i+1).padStart(2,'0')+'.'+ext());return}
+  const z=new JSZip();
+  for(const[t,s,i]of jobs)z.file(t+'/'+slug()+'-'+t+'-'+String(i+1).padStart(2,'0')+'.'+ext(),await blobOf(s,P[t]));
+  save(await z.generateAsync({type:'blob'}),slug()+'-play-store-screenshots.zip');
+  const w=['phone','tablet'].filter(t=>P[t].s.length&&P[t].s.length<2);if(w.length)toast('Note: Google Play needs at least 2 '+w.join(' and ')+' screenshots.');
+};
+$('#saveP').onclick=()=>save(new Blob([JSON.stringify(P,(k,v)=>k[0]==='_'?undefined:v)],{type:'application/json'}),slug()+'.playshots.json');
+$('#load').onclick=()=>$('#jf').click();
+$('#jf').onchange=async e=>{
+  const f=e.target.files[0];e.target.value='';if(!f)return;
+  try{
+    const j=JSON.parse(await f.text());if(j.app!=='PlayShots')throw 0;
+    for(const t of['phone','tablet'])for(const s of j[t].s){const im=await loadIm(s.img);s._im=im}
+    P=j;sel=0;all();toast('Project loaded.');
+  }catch(err){toast('That file is not a Screenshot Studio project.')}
+};
+all();
+</script>
+</body>
+</html>
